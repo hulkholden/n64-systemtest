@@ -12,7 +12,7 @@ use crate::tests::soft_asserts::soft_assert_eq;
 pub struct SLTU {}
 
 impl Test for SLTU {
-    fn name(&self) -> &str { "RSP SLT" }
+    fn name(&self) -> &str { "RSP SLTU" }
 
     fn level(&self) -> Level { Level::BasicFunctionality }
 
