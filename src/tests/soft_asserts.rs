@@ -32,7 +32,7 @@ pub fn soft_assert_eq_vector<H: FnOnce() -> String>(actual: Vector, expected: Ve
         Ok(())
     } else {
         // Doing typography with spaces...ugly
-        Err(format!("a == b expected, but (hex):\nActual:     {:04x?}\nExpected: {:04x?}\n{}", actual, expected, help()))
+        Err(format!("a == b expected, but (hex):\nActual:   {:04x?}\nExpected: {:04x?}\n{}", actual, expected, help()))
     }
 }
 
