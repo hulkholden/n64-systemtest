@@ -187,14 +187,14 @@ fn run_test_with_emulation_whole_reg<FEmit: Fn(&mut RSPAssembler, VR, VR, VR, El
         let addr = result_address as usize;
         // The default for target_register is only accurate when V2 is the target reg. NOOP instructions don't overwrite it, so don't check for those
         if (target == VR::V2) || (expected_result.target_register != TARGET_REGISTER_DEFAULT) {
-            soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 16), expected_result.target_register, || format!("Output register (main calculation result) for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
+            soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 16), expected_result.target_register, || format!("Output register (main calculation result) for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
         }
-        soft_assert_eq2(SPMEM::read(addr) as u16, expected_result.vco, || format!("VCO after calculation for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
-        soft_assert_eq2(SPMEM::read(addr + 4) as u16, expected_result.vcc, || format!("VCC after calculation for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
-        soft_assert_eq2(SPMEM::read(addr + 8) as u8, expected_result.vce, || format!("VCE after calculation for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
-        soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 64), expected_result.accum_0_16, || format!("Acc[0..16] after calculation for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
-        soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 48), ACC_MID, || format!("Acc[16..32] after calculation for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
-        soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 32), ACC_HIGH, || format!("Acc[32..48] after calculation for {:?},{:?},{:?}[{:?}]", target, source1, source2, e))?;
+        soft_assert_eq2(SPMEM::read(addr) as u16, expected_result.vco, || format!("VCO after calculation for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
+        soft_assert_eq2(SPMEM::read(addr + 4) as u16, expected_result.vcc, || format!("VCC after calculation for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
+        soft_assert_eq2(SPMEM::read(addr + 8) as u8, expected_result.vce, || format!("VCE after calculation for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
+        soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 64), expected_result.accum_0_16, || format!("Acc[0..16] after calculation for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
+        soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 48), ACC_MID, || format!("Acc[16..32] after calculation for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
+        soft_assert_eq_vector(SPMEM::read_vector_from_dmem(addr + 32), ACC_HIGH, || format!("Acc[32..48] after calculation for {:?},{:?},{:?}[{:?}]", target, source2, source1, e))?;
     }
 
     Ok(())
